@@ -18,6 +18,8 @@ import VueResource from 'vue-resource'
 Vue.use(VueResource)
 // 设置请求的根路径
 Vue.http.options.root = 'http://www.liulongbin.top:3005'
+// 全局设置 post 时候表单数据格式组织形式
+Vue.http.options.emulateJSON = true
 
 
 // 导入 MUI 的样式
