@@ -88,3 +88,11 @@
     + mui.js 中用到了'caller','callee',and 'arguments'东西，但是，webpack 打包好的 bundle.js 中，默认是启用严格模式的，所以，这两者冲突了;
     + 解决方案：1.把 mui.js 中的 非严格 模式的代码改掉，但是不现实;2.把 webpack 打包时候的严格模式禁用掉;
     + 最终，我们选择了 plan B 移除严格模式：使用这个插件 babel-plugin-transform-remove-strict-mode
+5. 刚进入图片分享页面的时候，滑动条无法正常工作，解决： 如果要初始化滑动条，必须要等 DOM 元素加载完毕，所以，我们把 初始化 滑动条的代码，搬到了 mounted 生命周期函数中
+6. 当滑动条 调试ok后，发现，tabbbar 无法正常工作了，这时候，我们需要把每个 tabbar 按钮的样式中 `mui-tab-item` 重新改一下名字;
+7. 获取所有分类，并渲染分类列表;
+
+### 制作图片列表区域
+1. 图片列表需要使用懒加载技术，我们可以使用 Mint-UI 提供的现成的组件 `lazy-load`
+2. 根据`lazy-load`的使用文档，尝试使用
+3. 渲染图片列表数据

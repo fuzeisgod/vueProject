@@ -28,11 +28,12 @@ import './lib/mui/css/icons-extra.css'
 
 
 // 按需导入 Mint-UI 中的组件
-import { Header, Swipe, SwipeItem, Button } from 'mint-ui'
+import { Header, Swipe, SwipeItem, Button, Lazyload } from 'mint-ui'
 Vue.component(Header.name, Header)
 Vue.component(Swipe.name, Swipe)
 Vue.component(SwipeItem.name, SwipeItem)
 Vue.component(Button.name, Button)
+Vue.use(Lazyload)
 
 
 // 1.3 导入自己的 router.js 路由模块
