@@ -9,6 +9,9 @@
     <hr>
 
     <!-- 缩略图区域 -->
+    <div class="thumbs">
+        <vue-preview :slides="list" @close="handleClose"></vue-preview>
+    </div>
 
     <!-- 图片内容区域 -->
     <div class="content" v-html="photoinfo.content"></div>
@@ -26,11 +29,13 @@ export default {
   data() {
     return {
       id: this.$route.params.id, // 从路由中获取到的 图片Id
-      photoinfo: {} // 图片详情
+      photoinfo: {}, // 图片详情
+      list: [] // 缩略图的数组
     };
   },
   created() {
     this.getPhotoInfo();
+    this.getThumbs();
   },
   methods: {
     getPhotoInfo() {
@@ -40,9 +45,30 @@ export default {
           this.photoinfo = result.body.message[0];
         }
       });
+    },
+    handleClose() {
+      console.log("close event");
+    },
+    getThumbs() {
+      // 获取缩略图
+      this.$http.get("api/getthumimages/" + this.id).then(result => {
+        if (result.body.status === 0) {
+          // 循环每个图片数据，补全图片对象
+          result.body.message.forEach((item, i) => {
+            item.w = 600;
+            item.h = 400;
+            item.msrc = item.src;
+            item.alt = "picture" + (i + 1);
+            item.title = "Image Caption " + (i + 1);
+          });
+          // 把完整的数据保存到list中
+          this.list = result.body.message;
+        }
+      });
     }
   },
-  components: { // 注册评论子组件
+  components: {
+    // 注册评论子组件
     "cmt-box": comment
   }
 };
@@ -67,5 +93,11 @@ export default {
     font-size: 13px;
     line-height: 30px;
   }
+}
+.thumbs{
+    img{
+        width: 120px;
+        height: 120px;
+    }
 }
 </style>
