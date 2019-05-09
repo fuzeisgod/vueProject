@@ -10,17 +10,22 @@
           <a
             :class="['mui-control-item', item.id == 0 ? 'mui-active':'']"
             v-for="item in cates"
-            :key="item.id" @click="getPhotoListByCateId(item.id)"
+            :key="item.id"
+            @click="getPhotoListByCateId(item.id)"
           >{{ item.title }}</a>
         </div>
       </div>
     </div>
 
     <!-- 图片列表区域 -->
-    <ul>
-      <li v-for="item in list" :key="item.id">
+    <ul class="photo-list">
+      <router-link v-for="item in list" :key="item.id" :to="'/home/photoinfo/' + item.id" tag="li">
         <img v-lazy="item.img_url">
-      </li>
+        <div class="info">
+          <h1 class="info-title">{{ item.title }}</h1>
+          <div class="info-body">{{ item.zhaiyao }}</div>
+        </div>
+      </router-link>
     </ul>
   </div>
 </template>
@@ -75,9 +80,41 @@ export default {
 * {
   touch-action: pan-y;
 }
-img[lazy="loading"] {
-  width: 40px;
-  height: 300px;
-  margin: auto;
+.photo-list {
+  list-style: none;
+  margin: 0;
+  padding: 10px;
+  padding-bottom: 0;
+  li {
+    background-color: #cccccc;
+    text-align: center;
+    margin-bottom: 10px;
+    box-shadow: 0 0 9px #999;
+    position: relative;
+    img {
+      width: 100%;
+      vertical-align: middle;
+    }
+    img[lazy="loading"] {
+      width: 40px;
+      height: 300px;
+      margin: auto;
+    }
+
+    .info {
+      color: #fff;
+      text-align: left;
+      position: absolute;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.4);
+      max-height: 84px;
+      .info-title {
+        font-size: 14px;
+      }
+      .info-body {
+        font-size: 13px;
+      }
+    }
+  }
 }
 </style>
