@@ -5,6 +5,29 @@ import VueRouter from 'vue-router'
 // 1.2 安装路由
 Vue.use(VueRouter)
 
+// 注册 Vuex
+import Vuex from 'vuex'
+Vue.use(Vuex)
+var store = new Vuex.Store({
+    state: { // this.$store.state.xxx
+        car: [] // 将购物车中的商品的数据，用一个数组存储起来，在 car 数组中，存储一些商品的对象，咱们可以暂时将商品对象，设计成这个样子 
+        // {id：商品的id, count：要购买的数量, price：要购买的商品的单价, selected：false}
+    },
+    mutations: { // this.$store.commit('方法名称')
+        addToCar(state, goodsinfo){
+            // 点击加入购物车，把商品信息，保存到 store 中的 car 上
+            // 分析：
+            // 1.如果购物车中，之前就已经有这个对应的商品了，那么，只需要更新数量
+            // 2.如果没有，则直接把商品数据，push 到 car 中即可
+            state.car.some(item=>{})
+        }
+    },
+    getters: { // this.$store.getters.***
+
+    }
+})
+
+
 // 导入格式化时间的插件
 import moment from 'moment'
 // 定义全局的过滤器
@@ -48,7 +71,6 @@ Vue.use(VuePreview)
 import router from './router.js'
 
 
-
 // 导入 App 跟组件
 import app from './App.vue'
 
@@ -56,5 +78,6 @@ import app from './App.vue'
 var vm = new Vue({
     el: '#app',
     render: c => c(app),
-    router // 1.4 挂载路由对象到 VM 实例上
+    router, // 1.4 挂载路由对象到 VM 实例上
+    store // 挂载 store 状态管理对象
 })
